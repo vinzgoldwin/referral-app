@@ -16,6 +16,6 @@ class AffiliateLandingPage extends Component
 
     public function render()
     {
-        return view('livewire.affiliate-landing-page');
+        return view('livewire.affiliate-landing-page')->layout('layouts.app');
     }
 }

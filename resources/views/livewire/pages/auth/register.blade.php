@@ -34,7 +34,15 @@ $register = function () {
 
     event(new Registered($user = User::create($validated)));
 
-    $code = $this->generateUniqueReferralCode();
+    $generateUniqueReferralCode = function () {
+        do {
+            $code = Str::upper(Str::random(6));
+        } while (ReferralCode::where('code', $code)->exists());
+
+        return $code;
+    };
+
+    $code = $generateUniqueReferralCode();
 
     ReferralCode::create([
         'user_id' => $user->id,
@@ -45,15 +53,6 @@ $register = function () {
 
     $this->redirect(route('dashboard', absolute: false), navigate: true);
 };
-
-private function generateUniqueReferralCode()
-{
-    do {
-        $code = Str::upper(Str::random(6));
-    } while (ReferralCode::where('code', $code)->exists());
-
-    return $code;
-}
 ?>
 
 <div>

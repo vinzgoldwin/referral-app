@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'total_referees',
         'total_withdrawal',
         'accumulated_commission',
+        'currency_id'
     ];
 
     /**
@@ -62,12 +63,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    public function getWeeklyCommissionAttribute()
+    public function currency()
     {
-        $weekStartDate = now()->startOfWeek()->toDateString();
-
-        return $this->commissions()
-            ->where('week_start_date', $weekStartDate)
-            ->sum('amount');
+        return $this->belongsTo(Currency::class);
     }
 }

@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $pageTitle ?? config('app.name', 'MxFin') }}</title>
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 200 50'><text x='10' y='40' font-family='Arial, sans-serif' font-size='48' font-weight='bold' fill='%230891B2'>MxFin</text></svg>">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

@@ -21,14 +21,19 @@ class AdminUserList extends Component
 
     public function render()
     {
-        $users = User::where('name', 'like', "%{$this->search}%")
-            ->orWhere('email', 'like', "%{$this->search}%")
+        $users =  User::where('is_admin', 0)
+            ->whereNotNull('email_verified_at')
+            ->where(function($query) {
+                $query->where('name', 'like', "%{$this->search}%")
+                    ->orWhere('email', 'like', "%{$this->search}%");
+            })
+            ->with('currency')
             ->orderBy('name')
             ->paginate($this->perPage);
 
         return view('livewire.admin.admin-user-list', [
             'users' => $users,
-        ])->layout('layouts.admin');
+        ])->layout('layouts.app');
     }
 
     public function editUser($userId)

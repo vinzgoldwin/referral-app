@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Currency;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Commission;
@@ -16,6 +17,8 @@ class AdminEditUser extends Component
     public $totalReferees;
     public $totalWithdrawal;
     public $accumulatedCommission;
+    public $currencyId;
+    public $currencies;
 
 
     public function mount($userId)
@@ -29,11 +32,15 @@ class AdminEditUser extends Component
         $this->totalReferees = $user->total_referees;
         $this->totalWithdrawal = $user->total_withdrawal;
         $this->accumulatedCommission = $user->accumulated_commission;
+        $this->currencyId = $user->currency_id;
+
+        $this->currencies = Currency::all();
     }
 
     public function updateUser()
     {
         $this->validate([
+            'currencyId' => 'required|exists:currencies,id',
             'totalReferees' => 'required|integer|min:0',
             'totalWithdrawal' => 'required|numeric|min:0',
             'accumulatedCommission' => 'required|numeric|min:0',
@@ -45,6 +52,7 @@ class AdminEditUser extends Component
             'total_referees' => $this->totalReferees,
             'total_withdrawal' => $this->totalWithdrawal,
             'accumulated_commission' => $this->accumulatedCommission,
+            'currency_id' => $this->currencyId,
         ]);
 
         session()->flash('success', 'User information updated successfully.');
@@ -54,6 +62,6 @@ class AdminEditUser extends Component
 
     public function render()
     {
-        return view('livewire.admin.admin-edit-user')->layout('layouts.admin');
+        return view('livewire.admin.admin-edit-user')->layout('layouts.app');
     }
 }

@@ -1,15 +1,17 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\RedirectIfAdmin;
+use App\Livewire\AffiliateLandingPage;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Admin\AdminUserList;
 use App\Livewire\Admin\AdminEditUser;
 
-Route::get('/', \App\Livewire\AffiliateLandingPage::class);
+Route::get('/', AffiliateLandingPage::class);
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', RedirectIfAdmin::class])
     ->name('dashboard');
 
 Route::view('profile', 'profile')
