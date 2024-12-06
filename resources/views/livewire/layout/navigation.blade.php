@@ -1,15 +1,3 @@
-<?php
-
-use App\Livewire\Actions\Logout;
-
-$logout = function (Logout $logout) {
-    $logout();
-
-    $this->redirect('/', navigate: true);
-};
-
-?>
-
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,7 +5,7 @@ $logout = function (Logout $logout) {
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ auth()->check() && auth()->user()->is_admin ? route('admin.users.index') : route('dashboard') }}" wire:navigate>
+                    <a href="{{ auth()->check() && auth()->user()->is_admin ? route('admin.users.index') : (auth()->check() ? route('dashboard') : route('landing-page')) }}" wire:navigate>
                         <svg width="200" height="40" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
                             <text x="0" y="35" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#0891B2">MxFin</text>
                         </svg>
@@ -25,23 +13,20 @@ $logout = function (Logout $logout) {
                 </div>
 
                 <!-- Navigation Links -->
-                <!-- Existing Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @if (auth()->check() && !auth()->user()->is_admin)
+                        <!-- Authenticated non-admin -->
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                             {{ __('Dashboard') }}
                         </x-nav-link>
-
-                        <!-- Non-admin (User) Events and Promos -->
                         <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')" wire:navigate>
                             {{ __('Events') }}
                         </x-nav-link>
                         <x-nav-link :href="route('promos.index')" :active="request()->routeIs('promos.index')" wire:navigate>
                             {{ __('Promos') }}
                         </x-nav-link>
-
                     @elseif (auth()->check() && auth()->user()->is_admin)
-                        <!-- Admin Events and Promos -->
+                        <!-- Authenticated admin -->
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" wire:navigate>
                             {{ __('Users') }}
                         </x-nav-link>
@@ -49,6 +34,14 @@ $logout = function (Logout $logout) {
                             {{ __('Events') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.promos.index')" :active="request()->routeIs('admin.promos.index')" wire:navigate>
+                            {{ __('Promos') }}
+                        </x-nav-link>
+                    @else
+                        <!-- Guest (not authenticated) -->
+                        <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')" wire:navigate>
+                            {{ __('Events') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('promos.index')" :active="request()->routeIs('promos.index')" wire:navigate>
                             {{ __('Promos') }}
                         </x-nav-link>
                     @endif
@@ -126,6 +119,14 @@ $logout = function (Logout $logout) {
                     {{ __('Events') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.promos.index')" :active="request()->routeIs('admin.promos.index')" wire:navigate>
+                    {{ __('Promos') }}
+                </x-responsive-nav-link>
+            @else
+                <!-- Guest -->
+                <x-responsive-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')" wire:navigate>
+                    {{ __('Events') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('promos.index')" :active="request()->routeIs('promos.index')" wire:navigate>
                     {{ __('Promos') }}
                 </x-responsive-nav-link>
             @endif
