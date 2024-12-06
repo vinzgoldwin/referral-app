@@ -46,6 +46,9 @@ $logout = function (Logout $logout) {
                         <x-nav-link :href="route('admin.promos.index')" :active="request()->routeIs('admin.promos.index')" wire:navigate>
                             {{ __('Promos') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.referral-websites.index')" :active="request()->routeIs('admin.referral-websites.index')" wire:navigate>
+                            {{ __('Websites') }}
+                        </x-nav-link>
                     @else
                         <!-- Guest (not authenticated) -->
                         <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')" wire:navigate>
@@ -130,6 +133,9 @@ $logout = function (Logout $logout) {
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.promos.index')" :active="request()->routeIs('admin.promos.index')" wire:navigate>
                     {{ __('Promos') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.referral-websites.index')" :active="request()->routeIs('admin.referral-websites.index')" wire:navigate>
+                    {{ __('Websites') }}
                 </x-responsive-nav-link>
             @else
                 <!-- Guest -->

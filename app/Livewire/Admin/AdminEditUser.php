@@ -19,6 +19,7 @@ class AdminEditUser extends Component
     public $accumulatedCommission;
     public $currencyId;
     public $currencies;
+    public $status;
 
 
     public function mount($userId)
@@ -33,6 +34,7 @@ class AdminEditUser extends Component
         $this->totalWithdrawal = $user->total_withdrawal;
         $this->accumulatedCommission = $user->accumulated_commission;
         $this->currencyId = $user->currency_id;
+        $this->status = $user->status;
 
         $this->currencies = Currency::all();
     }
@@ -44,6 +46,7 @@ class AdminEditUser extends Component
             'totalReferees' => 'required|integer|min:0',
             'totalWithdrawal' => 'required|numeric|min:0',
             'accumulatedCommission' => 'required|numeric|min:0',
+            'status' => 'required|in:enabled,disabled,banned'
         ]);
 
         $user = User::findOrFail($this->userId);
@@ -53,6 +56,7 @@ class AdminEditUser extends Component
             'total_withdrawal' => $this->totalWithdrawal,
             'accumulated_commission' => $this->accumulatedCommission,
             'currency_id' => $this->currencyId,
+            'status' => $this->status,
         ]);
 
         session()->flash('success', 'User information updated successfully.');

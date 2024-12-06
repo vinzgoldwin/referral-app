@@ -15,6 +15,12 @@ $login = function () {
 
     $this->form->authenticate();
 
+    if (Auth::check() && Auth::user()->status === 'banned') {
+        Auth::logout();
+        session()->flash('status', 'Your account is banned. Please contact support.');
+        return;
+    }
+
     Session::regenerate();
 
     if (Auth::user()->is_admin) {

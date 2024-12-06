@@ -10,6 +10,9 @@ use App\Livewire\Admin\AdminUserList;
 use App\Livewire\Admin\Event\AdminEventCreate;
 use App\Livewire\Admin\Event\AdminEventEdit;
 use App\Livewire\Admin\Event\AdminEventList;
+use App\Livewire\Admin\ReferralWebsite\AdminReferralWebsiteCreate;
+use App\Livewire\Admin\ReferralWebsite\AdminReferralWebsiteEdit;
+use App\Livewire\Admin\ReferralWebsite\AdminReferralWebsiteList;
 use App\Livewire\AffiliateLandingPage;
 use App\Livewire\EventList;
 use App\Livewire\EventShow;
@@ -43,6 +46,10 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::get('/promos', AdminPromoList::class)->name('admin.promos.index');
     Route::get('/promos/create', AdminPromoCreate::class)->name('admin.promos.create');
     Route::get('/promos/{promoId}/edit', AdminPromoEdit::class)->name('admin.promos.edit');
+
+    Route::get('/referral-websites', AdminReferralWebsiteList::class)->name('admin.referral-websites.index');
+    Route::get('/referral-websites/create', AdminReferralWebsiteCreate::class)->name('admin.referral-websites.create');
+    Route::get('/referral-websites/{id}/edit', AdminReferralWebsiteEdit::class)->name('admin.referral-websites.edit');
 });
 
 require __DIR__.'/auth.php';

@@ -27,7 +27,7 @@ class AdminUserList extends Component
                 $query->where('name', 'like', "%{$this->search}%")
                     ->orWhere('email', 'like', "%{$this->search}%");
             })
-            ->with('currency')
+            ->with(['currency', 'referralCode'])
             ->orderBy('name')
             ->paginate($this->perPage);
 

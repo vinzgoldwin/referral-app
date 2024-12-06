@@ -20,11 +20,12 @@
         <tr class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
             <th class="py-2 px-4">Name</th>
             <th class="py-2 px-4">Email</th>
+            <th class="py-2 px-4">Status</th>
             <th class="py-2 px-4">Total Referees</th>
             <th class="py-2 px-4">Currency Code</th>
             <th class="py-2 px-4">Accumulated Commission</th>
             <th class="py-2 px-4">Withdrawal</th>
-            <th class="py-2 px-4">Remaining Balance</th>
+            <th class="py-2 px-4">Referral Code</th>
             <th class="py-2 px-4">Actions</th>
         </tr>
         </thead>
@@ -33,19 +34,27 @@
             <tr class="border-t border-gray-200 dark:border-gray-700">
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200">{{ $user->name }}</td>
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200">{{ $user->email }}</td>
+                <td class="py-2 px-4 text-center
+                    @if ($user->status === 'enabled') text-green-600 dark:text-green-400
+                    @elseif ($user->status === 'disabled') text-yellow-600 dark:text-yellow-400
+                    @elseif ($user->status === 'banned') text-red-600 dark:text-red-400
+                    @else text-gray-800 dark:text-gray-200
+                    @endif"
+                >
+                    {{ ucfirst($user->status) }}
+                </td>
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200">{{ $user->total_referees }}</td>
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200">{{ $user->currency->code ?? 'N/A' }}</td>
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200"> {{ $user->accumulated_commission }}</td>
                 <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200"> {{ $user->total_withdrawal }}</td>
-                <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200"> {{$user->accumulated_commission - $user->total_withdrawal}}</td>
-
+                <td class="py-2 px-4 text-center text-gray-800 dark:text-gray-200"> {{ $user->referralCode->code }}</td>
                 <td class="py-2 px-4 text-center">
                     <button wire:click="editUser({{ $user->id }})" class="text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
                 </td>
             </tr>
         @empty
             <tr>
-                <td colspan="8" class="py-4 px-4 text-center text-gray-800 dark:text-gray-200">No users found.</td>
+                <td colspan="9" class="py-4 px-4 text-center text-gray-800 dark:text-gray-200">No users found.</td>
             </tr>
         @endforelse
         </tbody>

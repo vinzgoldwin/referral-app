@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'is_admin',
+        'status',
         'total_referees',
         'total_withdrawal',
         'accumulated_commission',
