@@ -2,7 +2,11 @@
     <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Users</h1>
 
     @if(session('success'))
-        <div class="bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 p-4 rounded mb-4">
+        <div
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 5000)"
+            x-show="show"
+            class="bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 p-4 rounded mb-4">
             {{ session('success') }}
         </div>
     @endif
