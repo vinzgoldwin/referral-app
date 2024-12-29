@@ -7,7 +7,7 @@
                         MXFIN
                     </h1>
                     <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
-                        Program Afiliasi MXFIN menawarkan anda bisnis online tanpa modal sebagai afiliator slot game dan afiliator bandar bola dengan cara mudah serta gratis biaya pendaftaran dengan komisi 30% setiap bulan. Segera daftarkan diri anda bersama kami dan dapatkan keuntungan besar setiap bulan.
+                        Program Afiliasi MXFIN dengan cara mudah serta gratis biaya pendaftaran dengan komisi 30% setiap bulan. Segera daftarkan diri anda bersama kami dan dapatkan keuntungan besar setiap bulan.
                     </p>
                     <a href="{{ route('login') }}" class="inline-block bg-cyan-800 dark:bg-cyan-600 text-white px-6 py-3 rounded-md text-base font-medium hover:bg-cyan-900 dark:hover:bg-cyan-700">
                         Gabung Sekarang
